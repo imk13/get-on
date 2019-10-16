@@ -8,10 +8,12 @@ const Utils = require('../../utils');
 exports.list = async (req, res, next) => {
   try {
     let pagination = Utils.getPagination(req.query);
+    let query = {'is_active': true};
     const transformedDocs = await Document
-      .find({})
+      .find(query)
       .skip(pagination.limit * (pagination.page - 1))
-      .limit(pagination.limit);
+      .limit(pagination.limit)
+      .populate({path:'queries.question', select: 'question'});
     res.json({data: transformedDocs});
   } catch (error) {
     next(error);
@@ -21,11 +23,12 @@ exports.list = async (req, res, next) => {
 exports.listBy = async (req, res, next) => {
   try {
   	let pagination = Utils.getPagination(req.query);
-    let query = {};
+    let query = {'is_active': true};
     const transformedDocs = await Document
       .find(query)
       .skip(pagination.limit * (pagination.page - 1))
-      .limit(pagination.limit);
+      .limit(pagination.limit)
+      .populate({path:'queries.question', select: 'question'});
     res.json({data: transformedDocs});
   } catch (error) {
     next(error);
