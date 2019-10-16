@@ -3,8 +3,8 @@ const {env} = require('../../config/vars');
 const logger = winston.createLogger({
   level: 'info',
   format: winston.format.combine(
-    winston.format.timestamp(),
-    winston.format.json()),
+    winston.format.json(),
+    winston.format.timestamp()),
   transports: [
     //
     // - Write to all logs with level `info` and below to `combined.log`

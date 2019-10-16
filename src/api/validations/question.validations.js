@@ -12,5 +12,15 @@ module.exports = {
       question: Joi.string().trim().required(),
       created_by: Joi.string().trim().required()
     }
+  },
+  update: {
+    body: {
+      _id : Joi.string().trim().min(1).required(),
+    }
+  },
+  remove: {
+    body: {
+      _id : Joi.string().trim().min(1).required(),
+    }
   }
 };

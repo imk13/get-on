@@ -9,8 +9,9 @@ const logger = require('../logger');
 exports.list = async (req, res, next) => {
   try {
     let pagination = Utils.getPagination(req.query);
+    let query = {'is_active': true};
     const questionList = await Question
-      .find({})
+      .find(query)
       .skip(pagination.limit * (pagination.page - 1))
       .limit(pagination.limit);
     logger.info(questionList);
@@ -23,7 +24,7 @@ exports.list = async (req, res, next) => {
 exports.listBy = async (req, res, next) => {
   try {
   	let pagination = Utils.getPagination(req.query);
-    let query = {};
+    let query = {'is_active': true};
     const questionList = await Question
       .find(query)
       .skip(pagination.limit * (pagination.page - 1))

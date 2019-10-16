@@ -1,0 +1,19 @@
+version: '3'
+services:
+  worker:
+    build: 
+      context: .
+      dockerfile: Dockerfile-test
+    ports:
+      - "9090:9090"
+    restart: always
+    environment:
+      WAIT_HOSTS: database:27017
+    volumes: 
+      - ".:/home/nodejs/app"
+  database:
+    image: mongo:4.0
+    volumes:
+      - "./data/get-on:/data/get-on"
+    expose:
+      - 27017

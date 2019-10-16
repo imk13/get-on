@@ -10,7 +10,7 @@ let DocSchema = new Schema({
       type : [
         {
           'question' : {
-            type : mongoose.Schema.Types.ObjectId,
+            type : ObjectId,
             ref : 'question'
           },
           'answer' : {
