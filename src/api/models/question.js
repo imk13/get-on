@@ -7,7 +7,6 @@ const QuerySchema = new Schema({
     metadata: {},
     created_by: {type: String, required: true},
     is_active: {type: Boolean, required: true, default: true},
-    is_deleted: {type: Boolean, required: true, default: false},
     created_at: Date,
     updated_at: Date
 });

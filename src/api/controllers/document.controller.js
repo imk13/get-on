@@ -1,12 +1,17 @@
 
 const Document = require('../models/document');
+const Utils = require('../../utils');
 /**
  * Get doc list
  * @public
  */
 exports.list = async (req, res, next) => {
   try {
-    const transformedDocs = [];
+    let pagination = Utils.getPagination(req.query);
+    const transformedDocs = await Document
+      .find({})
+      .skip(pagination.limit * (pagination.page - 1))
+      .limit(pagination.limit);
     res.json({data: transformedDocs});
   } catch (error) {
     next(error);
@@ -15,8 +20,12 @@ exports.list = async (req, res, next) => {
 
 exports.listBy = async (req, res, next) => {
   try {
-  	let queryParams = req.query;
-    const transformedDocs = [];
+  	let pagination = Utils.getPagination(req.query);
+    let query = {};
+    const transformedDocs = await Document
+      .find(query)
+      .skip(pagination.limit * (pagination.page - 1))
+      .limit(pagination.limit);
     res.json({data: transformedDocs});
   } catch (error) {
     next(error);

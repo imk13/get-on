@@ -4,7 +4,7 @@ const ObjectId = Schema.ObjectId;
 
 // create a schema
 let DocSchema = new Schema({
-    userid: {type: String, required: true},
+    patient_id: {type: String, required: true},
     name: { type: String, required: true },
     queries: {
       type : [
@@ -23,6 +23,7 @@ let DocSchema = new Schema({
     },
     metadata: {},
     is_active: {type: Boolean, required: true, default: true},
+    created_by: {type: String, required: true},
     created_at: Date,
     updated_at: Date
 });

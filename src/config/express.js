@@ -3,8 +3,8 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
-const middlewares = require('../components/middlewares');
-const routes = require('../components/routes/v1');
+const middlewares = require('../api/middlewares');
+const routes = require('../api/routes/v1');
 const { logs } = require('./vars');
 /**
 * Express instance
@@ -26,7 +26,7 @@ app.use(helmet());
 app.use(cors());
 
 // mount api v1 routes
-app.use('/v1', routes);
+app.use('/api/v1', routes);
 
 // add error handler
 app.use(middlewares.errHandler);

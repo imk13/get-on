@@ -1,13 +1,20 @@
 
-const Question = require('../models/document');
+const Question = require('../models/question');
+const Utils = require('../../utils');
+const logger = require('../logger');
 /**
  * Get question list
  * @public
  */
 exports.list = async (req, res, next) => {
   try {
-    const transformedDocs = [];
-    res.json({data: transformedDocs});
+    let pagination = Utils.getPagination(req.query);
+    const questionList = await Question
+      .find({})
+      .skip(pagination.limit * (pagination.page - 1))
+      .limit(pagination.limit);
+    logger.info(questionList);
+    res.json({data: questionList});
   } catch (error) {
     next(error);
   }
@@ -15,9 +22,13 @@ exports.list = async (req, res, next) => {
 
 exports.listBy = async (req, res, next) => {
   try {
-  	let queryParams = req.query;
-    const transformedDocs = [];
-    res.json({data: transformedDocs});
+  	let pagination = Utils.getPagination(req.query);
+    let query = {};
+    const questionList = await Question
+      .find(query)
+      .skip(pagination.limit * (pagination.page - 1))
+      .limit(pagination.limit);
+    res.json({data: questionList});
   } catch (error) {
     next(error);
   }
@@ -26,6 +37,7 @@ exports.listBy = async (req, res, next) => {
 exports.create = async (req, res, next) => {
   try {
   	let body = req.body;
+    logger.info(JSON.stringify(body));
   	let ques = new Question(body);
   	let result = await ques.save();
     res.json({data: result});
