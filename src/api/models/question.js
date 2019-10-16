@@ -2,16 +2,16 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
-const QuerySchema = new Schema({
+const QueSchema = new Schema({
     question: {type: String, required: true},
     metadata: {},
-    created_by: {type: String, required: true},
     is_active: {type: Boolean, required: true, default: true},
+    created_by: {type: String, required: true},
     created_at: Date,
     updated_at: Date
 });
 // Before saving doc
-QuerySchema.pre('save', function(next) {
+QueSchema.pre('save', function(next) {
     var currentDate = new Date();
     //console.log(this);
     this.updated_at = currentDate;
@@ -21,6 +21,6 @@ QuerySchema.pre('save', function(next) {
     next();
 });
 
-let Question = mongoose.model('question', QuerySchema);
+let Question = mongoose.model('question', QueSchema);
 // make this available to our mdeium urls in our applications
 module.exports = Question;
