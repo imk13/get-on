@@ -4,6 +4,8 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile-test
+    ports:
+      - "9090:9090"
     restart: always
     environment:
       WAIT_HOSTS: database:27017
